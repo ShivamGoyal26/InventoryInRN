@@ -30,6 +30,9 @@ const Houses = props => {
                         return (
                             <HouseItem
                                 title={itemData.item.name}
+                                onAction={() => {
+                                    props.navigation.navigate("Room", {name: itemData.item.name})
+                                }}
                             />
                         );
                     }}

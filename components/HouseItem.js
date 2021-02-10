@@ -4,12 +4,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const HouseItem = props => {
     return (
-        <View style={styles.screen}>
-            <Text>{props.title}</Text>
-            <TouchableOpacity>
+        <TouchableOpacity onPress={props.onAction}>
+            <View style={styles.screen}>
+                <Text>{props.title}</Text>
                 <Ionicons name="home-outline" size={30} />
-            </TouchableOpacity>
-        </View>
+            </View>
+        </TouchableOpacity>
     );
 }
 
