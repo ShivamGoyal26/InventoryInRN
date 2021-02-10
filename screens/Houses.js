@@ -1,10 +1,41 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
 import Colors from '../constants/Colors';
+import HOUSES from '../data/dummy-data';
+
+import HouseItem from '../components/HouseItem';
 
 const Houses = props => {
+
+    const FlatListItemSeparator = () => {
+        return (
+            <View
+                style={{
+                    height: 1,
+                    width: "100%",
+                    backgroundColor: "grey",
+                }}
+            />
+        );
+    }
+
     return (
         <View style={styles.screen}>
+            <View style={{ backgroundColor: 'white', margin: 15, borderRadius: 10 }}>
+                <FlatList
+                    data={HOUSES}
+                    keyExtractor={item => item.id}
+                    ItemSeparatorComponent={FlatListItemSeparator}
+                    renderItem={itemData => {
+                        return (
+                            <HouseItem
+                                title={itemData.item.name}
+                            />
+                        );
+                    }}
+                />
+            </View>
+
             <TouchableOpacity
                 style={styles.buttonWrapper}
                 onPress={() => {
@@ -24,7 +55,7 @@ const Houses = props => {
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        backgroundColor: '#87CEFA'
+        backgroundColor: Colors.accent,
     },
     addHouse: {
         width: 140,

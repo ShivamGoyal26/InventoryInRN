@@ -1,26 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
-import * as ImagePicker from 'react-native-image-picker';
+import Colors from '../constants/Colors';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
-import Colors from '../constants/Colors';
-
-const AddHouse = props => {
-
-    const [houseName, setHouseName] = useState('');
-    console.log(houseName)
-
+const AddRoom = props => {
     return (
         <View style={styles.screen}>
 
             <View style={styles.text}>
                 <Text style={{ fontSize: 19, }}>
-                    House Name
+                    Room Name
             </Text>
             </View>
 
             <View style={styles.textInput}>
-                <TextInput placeholder="Add name" onChangeText = {text => setHouseName(text)} />
+                <TextInput placeholder="Add name" />
             </View>
 
             <View style={styles.camera}>
@@ -86,4 +80,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default AddHouse;
+export default AddRoom;
