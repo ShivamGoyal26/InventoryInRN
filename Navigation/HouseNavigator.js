@@ -10,10 +10,12 @@ import AddHouse from '../screens/AddHouse';
 import Colors from '../constants/Colors';
 import Room from '../screens/Room';
 import AddRoom from '../screens/AddRoom';
-import EditRoom from '../screens/EditRoom'
+import Items from '../screens/Items'
+import AddItems from '../screens/AddItems';
+import EditItem from '../screens/EditItem';
+import EditRoom from '../screens/EditRoom';
 
 const Stack = createStackNavigator();
-// const RoomNavigator = createStackNavigator();
 
 const HouseNavigator = () => {
     return (
@@ -43,15 +45,6 @@ const HouseNavigator = () => {
                     name="AddHouse"
                     component={AddHouse}
                     options={({ navigation }) => ({
-                        // headerLeft: () => (
-                        //     <View style={{ marginLeft: 10 }}>
-                        //         <TouchableOpacity onPress={() => {
-                        //             // navigation.toggleDrawer();
-                        //         }}>
-                        //             <Ionicons name="menu-outline" size={23} color='white' />
-                        //         </TouchableOpacity>
-                        //     </View>
-                        // ),
                         title: "Add House",
                         headerTintColor: 'white',
                         headerStyle: {
@@ -63,15 +56,6 @@ const HouseNavigator = () => {
                     name="Room"
                     component={Room}
                     options={({ navigation, route }) => ({
-                        // headerLeft: () => (
-                        //     <View style={{ marginLeft: 10 }}>
-                        //         <TouchableOpacity onPress={() => {
-                        //             // navigation.toggleDrawer();
-                        //         }}>
-                        //             <Ionicons name="menu-outline" size={23} color='white' />
-                        //         </TouchableOpacity>
-                        //     </View>
-                        // ),
                         title: route.params.name,
                         headerTintColor: 'white',
                         headerStyle: {
@@ -83,15 +67,6 @@ const HouseNavigator = () => {
                     name="AddRoom"
                     component={AddRoom}
                     options={({ navigation }) => ({
-                        // headerLeft: () => (
-                        //     <View style={{ marginLeft: 10 }}>
-                        //         <TouchableOpacity onPress={() => {
-                        //             // navigation.toggleDrawer();
-                        //         }}>
-                        //             <Ionicons name="menu-outline" size={23} color='white' />
-                        //         </TouchableOpacity>
-                        //     </View>
-                        // ),
                         title: "Add Room",
                         headerTintColor: 'white',
                         headerStyle: {
@@ -100,13 +75,14 @@ const HouseNavigator = () => {
                     })}
                 />
                 <Stack.Screen
-                    name="EditRoom"
-                    component={EditRoom}
+                    name="Items"
+                    component={Items}
                     options={({ navigation, route }) => ({
                         headerRight: () => (
                             <View style={{ marginRight: 10, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: 70 }}>
 
                                 <TouchableOpacity onPress={() => {
+                                     navigation.navigate("EditRoom")
                                 }}>
                                     <MaterialIcons name="edit" size={23} color='white' />
                                 </TouchableOpacity>
@@ -119,6 +95,55 @@ const HouseNavigator = () => {
                             </View>
                         ),
                         title: route.params.name,
+                        headerTintColor: 'white',
+                        headerStyle: {
+                            backgroundColor: Colors.primary,
+                        }
+                    })}
+                />
+                <Stack.Screen
+                    name="AddItems"
+                    component={AddItems}
+                    options={({ navigation }) => ({
+                        title: "Item Name",
+                        headerTintColor: 'white',
+                        headerStyle: {
+                            backgroundColor: Colors.primary,
+                        }
+                    })}
+                />
+                <Stack.Screen
+                    name="EditItem"
+                    component={EditItem}
+                    options={({ navigation, route }) => ({
+                        headerRight: () => (
+                            <View style={{ marginRight: 10, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: 70 }}>
+
+                                <TouchableOpacity onPress={() => {
+                                    navigation.navigate("EditRoom")
+                                }}>
+                                    <MaterialIcons name="edit" size={23} color='white' />
+                                </TouchableOpacity>
+
+                                <TouchableOpacity onPress={() => {
+                                }}>
+                                    <MaterialIcons name="search" size={23} color='white' />
+                                </TouchableOpacity>
+
+                            </View>
+                        ),
+                        title: route.params.name,
+                        headerTintColor: 'white',
+                        headerStyle: {
+                            backgroundColor: Colors.primary,
+                        }
+                    })}
+                />
+                 <Stack.Screen
+                    name="EditRoom"
+                    component={EditRoom}
+                    options={({ navigation }) => ({
+                        title: "Edit Room",
                         headerTintColor: 'white',
                         headerStyle: {
                             backgroundColor: Colors.primary,

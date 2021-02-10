@@ -3,40 +3,41 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-nativ
 import Colors from '../constants/Colors';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
-const EditRoom = props => {
+const EditItem = ({ props, route }) => {
     return (
         <View style={styles.screen}>
 
-            <View style={styles.text}>
-                <Text style={{ fontSize: 19, }}>
-                    Edit Room
+            <View style={{ margin: 15 }}>
+                <Text>Location: </Text>
+            </View>
+
+            <View style={{ marginHorizontal: 15 }}>
+                <Text>
+                    Description
             </Text>
             </View>
 
             <View style={styles.textInput}>
-                <TextInput placeholder="Edit Room Name" />
+                <TextInput placeholder="Add name" value={route.params.description} />
             </View>
 
-            <View style={styles.camera}>
-                <Text>Photos</Text>
-                <TouchableOpacity onPress={() => { }}>
-                    <Ionicons name="camera-outline" size={24} />
-                </TouchableOpacity>
-            </View>
+            <View style={styles.buttonWrapper}>
 
-            <TouchableOpacity
-                style={styles.buttonWrapper}
-                onPress={() => {
-                    props.navigation.navigate("AddHouse");
-                }}
-            >
+                <TouchableOpacity
+                    onPress={() => {
+                        props.navigation.pop();
+                    }}
+                >
 
-                <View style={styles.save}>
-                    <Text style={{ color: 'white' }}>
-                        Save
+                    <View style={styles.save}>
+                        <Text style={{ color: 'white' }}>
+                            Save
                     </Text>
-                </View>
-            </TouchableOpacity>
+                    </View>
+                </TouchableOpacity>
+
+            </View>
+
         </View>
     )
 };
@@ -51,6 +52,7 @@ const styles = StyleSheet.create({
         marginVertical: 30,
     },
     textInput: {
+        marginVertical: 20,
         backgroundColor: 'white',
         marginHorizontal: 15,
         borderRadius: 10,
@@ -80,4 +82,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default EditRoom;
+export default EditItem;

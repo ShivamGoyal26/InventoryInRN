@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
 import Colors from '../constants/Colors';
-import ROOMS from '../data/Rooms';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import ITEMS from '../data/Item';
 import HouseItem from '../components/HouseItem';
 
-const Room = props => {
+const EditRoom = props => {
 
     const FlatListItemSeparator = () => {
         return (
@@ -20,9 +21,13 @@ const Room = props => {
 
     return (
         <View style={styles.screen}>
+            <View style={{margin: 15,}}>
+            <Text style = {{left:15}}>Items ({ITEMS.length})</Text>
+            </View>
             <View style={{ backgroundColor: 'white', margin: 15, borderRadius: 10 }}>
+
                 <FlatList
-                    data={ROOMS}
+                    data={ITEMS}
                     keyExtractor={item => item.id}
                     ItemSeparatorComponent={FlatListItemSeparator}
                     renderItem={itemData => {
@@ -30,23 +35,23 @@ const Room = props => {
                             <HouseItem
                                 title={itemData.item.name}
                                 onAction={() => {
-                                    props.navigation.navigate("Items", { name: itemData.item.name })
+                                    props.navigation.navigate("EditItem", { name: itemData.item.name, description: itemData.item.description })
                                 }}
                             />
                         );
                     }}
                 />
             </View>
-
             <TouchableOpacity
                 style={styles.buttonWrapper}
                 onPress={() => {
-                    props.navigation.navigate("AddRoom");
+                    props.navigation.navigate("AddItems");
                 }}
             >
-                <View style={styles.addHouse}>
+                <View style={styles.edit}>
+                    <AntDesign name="pluscircleo" size={20} color='white' />
                     <Text style={{ color: 'white' }}>
-                        Add Room
+                        Items
                     </Text>
                 </View>
             </TouchableOpacity>
@@ -59,22 +64,24 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: Colors.accent,
     },
-    addHouse: {
-        width: 140,
-        padding: 6,
-        borderWidth: 2,
-        borderRadius: 10,
-        backgroundColor: Colors.primary,
-        alignItems: 'center',
-        justifyContent: 'center',
 
-    },
     buttonWrapper: {
         flexDirection: 'row',
         position: 'absolute',
         bottom: 10,
         right: 20,
-    }
+    },
+    edit: {
+        width: 100,
+        padding: 6,
+        borderRadius: 10,
+        borderWidth: 2,
+        backgroundColor: '#3673AB',
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+        flexDirection: 'row',
+
+    },
 });
 
-export default Room;
+export default EditRoom;

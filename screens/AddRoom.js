@@ -19,7 +19,7 @@ const AddRoom = props => {
 
             <View style={styles.camera}>
                 <Text>Photos</Text>
-                <TouchableOpacity onPress={() => {}}>
+                <TouchableOpacity onPress={() => { }}>
                     <Ionicons name="camera-outline" size={24} />
                 </TouchableOpacity>
             </View>

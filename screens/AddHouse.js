@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import * as ImagePicker from 'react-native-image-picker';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
@@ -10,40 +10,45 @@ const AddHouse = props => {
     const [houseName, setHouseName] = useState('');
     console.log(houseName)
 
+    const DismissKeyboard = ({ children }) => (
+        <TouchableWithoutFeedback
+            onPress={() => Keyboard.dismiss()}> {children}
+        </TouchableWithoutFeedback>
+    );
+
     return (
-        <View style={styles.screen}>
+        // <DismissKeyboard>
+            <View style={styles.screen}>
+                <View style={styles.text}>
+                    <Text style={{ fontSize: 19, }}>House Name</Text>
+                </View>
 
-            <View style={styles.text}>
-                <Text style={{ fontSize: 19, }}>
-                    House Name
-            </Text>
-            </View>
+                <View style={styles.textInput}>
+                    <TextInput placeholder="Add name" onChangeText={text => setHouseName(text)} />
+                </View>
 
-            <View style={styles.textInput}>
-                <TextInput placeholder="Add name" onChangeText = {text => setHouseName(text)} />
-            </View>
+                <View style={styles.camera}>
+                    <Text>Photos</Text>
+                    <TouchableOpacity onPress={() => { }}>
+                        <Ionicons name="camera-outline" size={24} />
+                    </TouchableOpacity>
+                </View>
 
-            <View style={styles.camera}>
-                <Text>Photos</Text>
-                <TouchableOpacity onPress={() => {}}>
-                    <Ionicons name="camera-outline" size={24} />
+                <TouchableOpacity
+                    style={styles.buttonWrapper}
+                    onPress={() => {
+                        props.navigation.navigate("AddHouse");
+                    }}
+                >
+
+                    <View style={styles.save}>
+                        <Text style={{ color: 'white' }}>
+                            Save
+                    </Text>
+                    </View>
                 </TouchableOpacity>
             </View>
-
-            <TouchableOpacity
-                style={styles.buttonWrapper}
-                onPress={() => {
-                    props.navigation.navigate("AddHouse");
-                }}
-            >
-
-                <View style={styles.save}>
-                    <Text style={{ color: 'white' }}>
-                        Save
-                    </Text>
-                </View>
-            </TouchableOpacity>
-        </View>
+        // </DismissKeyboard>
     )
 };
 
@@ -73,7 +78,7 @@ const styles = StyleSheet.create({
         padding: 6,
         borderRadius: 10,
         borderWidth: 2,
-        backgroundColor: 'green',
+        backgroundColor: '#00C03A',
         alignItems: 'center',
         justifyContent: 'center',
 
