@@ -1,13 +1,10 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import HouseNavigator from './Navigation/HouseNavigator';
+import Houses from './screens/Houses';
 
 const App = () => {
   return (
-    <View>
-      <Text>
-        This is the main screen
-      </Text>
-    </View>
+    <HouseNavigator />
   );
 };
 
