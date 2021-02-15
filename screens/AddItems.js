@@ -6,10 +6,16 @@ import { api } from '../API/api';
 import Toast from 'react-native-simple-toast';
 import * as ImagePicker from 'react-native-image-picker';
 import Entypo from 'react-native-vector-icons/Entypo';
+import { getJsonData } from './asyncStorage/async';
 
 const AddItems = ({ route, navigation }) => {
 
-    // const setData = route.params.setData;
+    const [token, setToken] = useState("")
+    useEffect(() => {
+        getJsonData("tokan").then(Token => { setToken(Token.token) })
+    }, [])
+
+    const setData = route.params.setData;
 
     const [itemName, setItemName] = useState('');
     const [description, setDescription] = useState('');
@@ -69,7 +75,7 @@ const AddItems = ({ route, navigation }) => {
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjAxZDJiYjRmMmY2M2UxODQxZTM1NTQ2IiwiaWF0IjoxNjEzMDI4NzgyLCJleHAiOjE2MTQ3NTY3ODJ9.Gu5x05j4NEFMb6dYefaeFAx2AneZPTJmpPcZAr6P2pY`
+                    'Authorization': `Bearer ${token}`
                 },
                 data: {
                     "roomId": roomId,

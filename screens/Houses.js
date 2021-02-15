@@ -2,23 +2,38 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, ActivityIndicator, Alert } from 'react-native';
 import Colors from '../constants/Colors';
 import { api, } from '../API/api';
-
 import HouseItem from '../components/HouseItem';
+import { getJsonData } from './asyncStorage/async';
+import { useFocusEffect } from '@react-navigation/native';
+
 
 const Houses = props => {
-
+    // const token  =
     const [loading, setLoading] = useState(true);
     const [response, setResponse] = useState(null);
     const [status, setStatus] = useState(true);
-
-
+    const [token,setToken]=useState("")
+    
+    useEffect(()=>{
+        setLoading(true)
+    },[])
+    useFocusEffect(React.useCallback(()=>{
+        getJsonData("tokan").then(Token =>{setToken(Token.token) })
+        // return setResponse(null)
+    },[]))
     useEffect(() => {
+<<<<<<< HEAD
         console.log("Houses are runing")
         fetchData();
     });
+=======
+        if(token!==""){
+            fetchData();
+        }
+    }, [token]);
+>>>>>>> ad73582360a181d5f29f4f5312bf08c0689cc7e3
 
     const fetchData = async () => {
-
         try {
             data = await api({
                 method: 'POST',
@@ -26,7 +41,7 @@ const Houses = props => {
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjAxZDJiYjRmMmY2M2UxODQxZTM1NTQ2IiwiaWF0IjoxNjEzMDI4NzgyLCJleHAiOjE2MTQ3NTY3ODJ9.Gu5x05j4NEFMb6dYefaeFAx2AneZPTJmpPcZAr6P2pY`
+                    'Authorization': `Bearer ${token}`
                 },
             });
         }
@@ -104,7 +119,7 @@ const Houses = props => {
                 <TouchableOpacity
                     style={styles.buttonWrapper}
                     onPress={() => {
-                        props.navigation.navigate("AddHouse", { setData: fetchData.bind(this)  })
+                        props.navigation.navigate("AddHouse", { setData: fetchData  })
                     }}
                 >
                     <View style={styles.addHouse} >
@@ -120,7 +135,7 @@ const Houses = props => {
                 <View style={styles.buttonWrapper}>
                     <TouchableOpacity
                         onPress={() => {
-                            props.navigation.navigate("AddHouse");
+                            props.navigation.navigate("AddHouse", { setData: fetchData  })
                         }}
                     >
                         <View style={styles.addHouse}>

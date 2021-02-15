@@ -1,5 +1,4 @@
 export const baseUrl = "https://imvptest.herokuapp.com/api/v1/"
-// export const mediaBaseUrl = "http://204.236.221.197:4300/Server/Images/"
 export const mediaBaseUrl = "https://imvptest.herokuapp.com/Server/Images/"
 
 export const api = async (config) => {

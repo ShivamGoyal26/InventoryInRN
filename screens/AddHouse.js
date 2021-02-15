@@ -5,11 +5,19 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Toast from 'react-native-simple-toast';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { api } from '../API/api';
-
 import Colors from '../constants/Colors';
+import { getJsonData } from './asyncStorage/async';
 
 const AddHouse = props => {
     // const { setData } = props.route.params;
+
+    const [token, setToken] = useState("")
+    useEffect(() => {
+        getJsonData("tokan").then(Token => { setToken(Token.token) })
+    }, [])
+
+
+
 
     const [houseName, setHouseName] = useState('');
     const [loading, setLoading] = useState(false);
@@ -62,7 +70,7 @@ const AddHouse = props => {
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjAxZDJiYjRmMmY2M2UxODQxZTM1NTQ2IiwiaWF0IjoxNjEzMDI4NzgyLCJleHAiOjE2MTQ3NTY3ODJ9.Gu5x05j4NEFMb6dYefaeFAx2AneZPTJmpPcZAr6P2pY`
+                    'Authorization': `Bearer ${token}`
                 },
                 data: {
                     "houseName": houseName,
@@ -71,9 +79,7 @@ const AddHouse = props => {
             });
             setLoading(false);
             Toast.show('HOUSE ADDED SUCCESFULLY', Toast.LONG);
-            // setData()
-            setResponse(data);
-            setStatus(data.message);
+            setData()
             props.navigation.pop()
             // props.navigation.navigate('Houses');
         }
@@ -88,7 +94,7 @@ const AddHouse = props => {
                 [{ text: "OK", onPress: () => { } }]
             );
         }
-       
+
 
     }
 

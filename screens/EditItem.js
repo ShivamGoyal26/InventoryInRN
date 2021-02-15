@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import Colors from '../constants/Colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { api, mediaBaseUrl } from '../API/api';
@@ -7,14 +7,13 @@ import Toast from 'react-native-simple-toast';
 
 const EditItem = ({ route, navigation }) => {
     const imageData = route.params.image.images[0];
-    console.log("This is the image Data", imageData)
     const houseName = route.params.houseName;
     const roomName = route.params.roomName;
     const houseId = route.params.houseId;
     const roomId = route.params.roomId;
-    const description = route.params.description;
+    const descriptionData = route.params.description;
 
-    const [itemName, setItemName] = useState(description);
+    const [description, setDescription] = useState(descriptionData);
     const [loading, setLoading] = useState(false);
     const [response, setResponse] = useState('');
 
@@ -32,7 +31,7 @@ const EditItem = ({ route, navigation }) => {
                 },
                 data: {
                     "_id": roomId,
-                    'itemName': itemName,
+                    'itemName': description,
                     "status": 2,
 
                 }
@@ -46,7 +45,7 @@ const EditItem = ({ route, navigation }) => {
                 "Network Error!",
                 "Please check your internet connection",
 
-                [{ text: "OK", onPress: () => { } }]
+                [{ text: "OK", onPress: () => {} }]
             );
         }
         setResponse(data)
@@ -88,7 +87,7 @@ const EditItem = ({ route, navigation }) => {
             </View>
 
             <View style={styles.textInput}>
-                <TextInput placeholder="Add name" value={itemName} onChangeText={text => setItemName(text)} />
+                <TextInput placeholder="Add name" value={description} onChangeText={text => setDescription(text)} />
             </View>
 
             <View style={styles.buttonWrapper}>
@@ -96,7 +95,7 @@ const EditItem = ({ route, navigation }) => {
                 <TouchableOpacity
                     onPress={() => {
                         if (checkDescription()) {
-                            EditItem();
+                            editIem();
                         }
                     }}
                 >

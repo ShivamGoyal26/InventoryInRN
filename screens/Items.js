@@ -5,8 +5,19 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import ITEMS from '../data/Item';
 import HouseItem from '../components/HouseItem';
 import { api, mediaBaseUrl } from '../API/api';
+import { getJsonData } from './asyncStorage/async';
 
 const EditRoom = ({ route, navigation }) => {
+    const [token,setToken]=useState("")
+    useEffect(()=>{
+        getJsonData("tokan").then(Token =>{setToken(Token.token) })
+    },[])
+
+    useEffect(() => {
+        if(token!==""){
+            fetchData();
+        }
+    }, [token]);
 
     const imageData = route.params.image.images[0];
     const houseId = route.params.houseId;
@@ -18,10 +29,14 @@ const EditRoom = ({ route, navigation }) => {
     const [response, setResponse] = useState([]);
     const [status, setStatus] = useState(true);
 
+<<<<<<< HEAD
     useEffect(() => {
         console.log("Houses are runing")
         fetchData();
     });
+=======
+ 
+>>>>>>> ad73582360a181d5f29f4f5312bf08c0689cc7e3
 
     const fetchData = async () => {
 
@@ -32,7 +47,7 @@ const EditRoom = ({ route, navigation }) => {
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjAxZDJiYjRmMmY2M2UxODQxZTM1NTQ2IiwiaWF0IjoxNjEzMDI4NzgyLCJleHAiOjE2MTQ3NTY3ODJ9.Gu5x05j4NEFMb6dYefaeFAx2AneZPTJmpPcZAr6P2pY`
+                    'Authorization': `Bearer ${token}`
                 },
                 data: {
                     "houseId": houseId,

@@ -5,8 +5,24 @@ import ROOMS from '../data/Rooms';
 import HouseItem from '../components/HouseItem';
 import { api, mediaBaseUrl } from '../API/api';
 import Entypo from 'react-native-vector-icons/Entypo';
-
+import { getJsonData } from './asyncStorage/async';
+import {useFocusEffect} from '@react-navigation/native'
 const Room = ({ route, navigation }) => {
+    const [token,setToken]=useState("")
+    
+    useFocusEffect(React.useCallback(()=>{
+        setTimeout(()=>{
+            getJsonData("tokan").then(Token =>{setToken(Token.token) })
+        },100)
+    },[]))
+
+    useEffect(() => {
+        if(token!==""){
+            fetchData();
+              console.log("Houses are runing") 
+        }
+    }, [token]);
+
     const imageData = route.params.image.images[0];
     const houseName = route.params.name;
     const houseId = route.params.id;
@@ -17,11 +33,14 @@ const Room = ({ route, navigation }) => {
     const [status, setStatus] = useState(true);
 
 
+<<<<<<< HEAD
     useEffect(() => {
         console.log("Houses are runing")
         fetchData();
     });
 
+=======
+>>>>>>> ad73582360a181d5f29f4f5312bf08c0689cc7e3
     const fetchData = async () => {
 
         try {
@@ -31,7 +50,8 @@ const Room = ({ route, navigation }) => {
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjAxZDJiYjRmMmY2M2UxODQxZTM1NTQ2IiwiaWF0IjoxNjEzMDI4NzgyLCJleHAiOjE2MTQ3NTY3ODJ9.Gu5x05j4NEFMb6dYefaeFAx2AneZPTJmpPcZAr6P2pY`
+                    'Authorization': `Bearer ${token}`
+       
                 },
                 data: {
                     "houseId": houseId,
@@ -132,7 +152,7 @@ const Room = ({ route, navigation }) => {
                     <View style={styles.buttonWrapper}>
                         <TouchableOpacity
                             onPress={() => {
-                                navigation.navigate("AddRoom", { houseid: houseId });
+                                navigation.navigate("AddRoom", { houseid: houseId , setData: fetchData.bind(this)});
                             }}
                         >
                             <View style={styles.addHouse}>

@@ -39,12 +39,11 @@ const Login = ({ navigation }) => {
 
         else {
 
-            getApi(config).then(
-                async function (json) {
+            getApi(config).then(async(json) =>{
                     if (json.status == 200) {
                         console.log("Response====>", json)
-                        await storeJsonData("tokan", json.data)
-                        navigation.navigate("Drawer")
+                        await storeJsonData("tokan",json.data)
+                        setTimeout(()=>{navigation.navigate("Drawer")},200)
                         Toast.show(json.message);
                     }
                     else {
